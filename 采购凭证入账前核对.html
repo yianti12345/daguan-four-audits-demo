@@ -827,6 +827,7 @@ body.report-reader #screen {
 .audit-report-reader {
   --report-width: 1168px;
   --report-inset: 24px;
+  --report-padding: 32px;
   color: var(--ifas-text);
   font: var(--ifas-text-size)/var(--ifas-text-line) var(--ifas-font);
   overflow-wrap: anywhere;
@@ -846,7 +847,7 @@ body.report-reader #screen {
   width: calc(100% - 2 * var(--report-inset));
   max-width: var(--report-width);
   margin: 24px auto 36px;
-  padding: 20px 32px 36px;
+  padding: 16px var(--report-padding) 36px;
   background: var(--ifas-surface);
   border-top: 2px solid var(--ifas-primary);
   border-radius: var(--ifas-radius-panel);
@@ -858,6 +859,10 @@ body.report-reader #screen {
   border-top: 1px solid var(--ifas-divider);
   padding-top: 16px;
   margin-top: 18px;
+}
+.audit-report-summary {
+  border-top: 0;
+  margin-top: 2px;
 }
 .audit-report-letterhead {
   min-height: var(--ifas-control);
@@ -880,9 +885,16 @@ body.report-reader #screen {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px 24px;
-  margin-top: 15px;
-  border-top: 1px solid var(--ifas-divider);
-  padding-top: 16px;
+  --report-masthead-ink: var(--ifas-surface);
+  --report-masthead-muted: color-mix(in srgb, var(--ifas-surface) 94%, transparent);
+  margin: 14px calc(-1 * var(--report-padding)) 0;
+  padding: 18px var(--report-padding);
+  color: var(--report-masthead-ink);
+  background-color: var(--ifas-primary-active);
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--ifas-primary-active) 48%, var(--ifas-text)),
+    var(--ifas-primary-active) 61%,
+    var(--ifas-primary) 100%);
 }
 .audit-report-heading h1 {
   font-size: 24px;
@@ -906,12 +918,12 @@ body.report-reader #screen {
   display: grid;
   gap: 3px;
   padding: 4px 0 4px 18px;
-  border-inline-start: 1px solid var(--ifas-divider);
+  border-inline-start: 1px solid color-mix(in srgb, var(--report-masthead-ink) 38%, transparent);
 }
 .audit-report-identifiers > div:first-child dd {
   font-size: 14px;
   font-weight: 600;
-  color: var(--ifas-text);
+  color: var(--report-masthead-ink);
 }
 .audit-report-meta > div {
   display: flex;
@@ -933,6 +945,12 @@ body.report-reader #screen {
   color: var(--ifas-text-secondary);
   font-size: 13px;
   line-height: 20px;
+}
+.audit-report-identity .audit-report-meta dt {
+  color: var(--report-masthead-muted);
+}
+.audit-report-identity .audit-report-meta dd {
+  color: var(--report-masthead-ink);
 }
 .audit-report-number,
 .audit-report-metrics dd,
@@ -1209,14 +1227,21 @@ body.report-reader #screen {
   .audit-report-export-error {
     display: none;
   }
+  .audit-report-reader {
+    --report-padding: 0px;
+  }
   .audit-report-document {
     width: 100%;
     padding: 0;
-  }
-  .audit-report-document {
     margin: 0;
     border: none;
     border-radius: 0;
+  }
+  .audit-report-identity {
+    --report-masthead-ink: var(--ifas-text);
+    --report-masthead-muted: var(--ifas-text-muted);
+    background: none;
+    border-block: 1px solid var(--ifas-divider);
   }
   .audit-report-citation,
   .audit-report-heading,
